@@ -11,12 +11,6 @@ import (
 	"time"
 )
 
-/*type alchemyGetNFTSRequestObject struct {
-    Owner string `json:"owner"`
-    PageKey       string `json:"pageKey,omitempty"`
-}
-*/
-
 type AlchemyGetNFTsResponseObject struct {
 	OwnedNfts []struct {
 		Contract struct {
@@ -165,6 +159,7 @@ func main() {
 	// add handlers to the http router
 	mux.HandleFunc("/api/", apiHandler)
 
+	fmt.Println("api listening on http://localhost:8080/api/ ....")
 	// start http server with given http router
 	http.ListenAndServe("localhost:8080", mux)
 }
