@@ -5,7 +5,7 @@ to run the api, build comple the code with ``go build main.go`` and then run the
 # Testing
 you can run tests by sending a GET request to the below URL (if you are running locally)
 
-https://localhost:8080/api/?address={valid ethereum address}&chain={mainnet/rinkeby/kovan}
+``http://localhost:8080/api/?address={valid ethereum address}&chain={mainnet/rinkeby/kovan}``
 
 ## Examples
 
