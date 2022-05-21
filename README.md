@@ -2,6 +2,8 @@
 
 to run the api, build comple the code with ``go build main.go`` and then run the compiled code
 
+requires GO version 1.17.2
+
 # Testing
 you can run tests by sending a GET request to the below URL (if you are running locally)
 
