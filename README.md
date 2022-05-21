@@ -12,8 +12,6 @@ cd into repository and build
 run the compiled binary
 ``./replay-code-test``
 
-Ran with GO version 1.17.2
-
 # Testing
 you can test by sending a GET request to the below URL (if you are running locally)
 
