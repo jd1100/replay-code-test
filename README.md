@@ -2,14 +2,18 @@
 
 # Installation
 
-clone the repository 
+clone the repository
+
 ``git clone https://github.com/jd1100/replay-code-test``
 
 cd into repository and build
+
 ``cd replay-code-test``
+
 ``go build``
 
 run the compiled binary
+
 ``./replay-code-test``
 
 # Testing
@@ -19,17 +23,28 @@ you can test by sending a GET request to the below URL (if you are running local
 
 ## Unit Tests
 
-run all unit tests  with ``go test -v``. To run unit tests individually use ``go test -v -run <Test Function Name>``
+>There are two unit test functions (provided below) in ``replay-code-test/replayCode_test.go``
 
-There are two unit test functions (provided below) in ``replay-code-test/replayCode_test.go``
+run all unit tests 
 
-### TestAPIHandlerResponseStatusWithInvalidChain
+``go test -v``
 
-tests the API with an invalid chain parameter. Test will fail if status code returned is not 400
+To run unit tests individually use 
 
-### TestAPIHandlerResponseObject
+``go test -v -run <Test Function Name>``
 
-validates that the object returned in the API response is a valid object
+
+---
+
+**TestAPIHandlerResponseStatusWithInvalidChain**
+
+>tests the API with an invalid chain parameter. Test will fail if status code returned is not 400
+
+**TestAPIHandlerResponseObject**
+
+>validates that the object returned in the API response is a valid object
+
+---
 
 ## Examples using curl
 
@@ -45,14 +60,14 @@ user@computer:~/replay-code-test$ curl "http://localhost:8080/api/?address=0x158
         ]
 }
 ```
---
+---
 ```
 user@computer:~/replay-code-test$ curl "http://localhost:8080/api/?address=0xdf9eb223bafbe5c5271415c75aecd68c21fe3d7f&chain=mainnet"
 {
         "ownedNfts": null
 }
 ```
---
+---
 ```
 user@computer:~/replay-code-test$ curl "http://localhost:8080/api/?address=0xbf3aeb96e164ae67e763d9e050ff124e7c3fdd28&chain=mainnet"
 {
@@ -85,7 +100,7 @@ user@computer:~/replay-code-test$ curl "http://localhost:8080/api/?address=0xbf3
         ]
 }
 ```
---
+---
 ```
 user@computer:~/replay-code-test$ curl "http://localhost:8080/api/?address=0xbf3aeb96e164ae67e763d9e050ff124e7c3fdd28&chain=mfewwewfef"
 invalid ethereum network
