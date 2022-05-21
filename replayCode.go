@@ -57,23 +57,23 @@ type APIResponseObject struct {
 	} `json:"ownedNfts"`
 }
 
-func apiHandler(w http.ResponseWriter, r *http.Request) {
+func APIHandler(w http.ResponseWriter, r *http.Request) {
 	var alchemyURL string
 	var alchemyGetNFTsResponseObject AlchemyGetNFTsResponseObject
 	var apiResponseObject APIResponseObject
 
 	// listen for GET request only
 	if (r.Method == "GET") {
-		fmt.Println(r.URL)
+		fmt.Printf("---\n%v %v\n", r.Method, r.URL)
 
 
 		// parse the http request parameters into string variables
 		parsedURL, err := url.Parse(r.URL.String())
-
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+
 		urlParameters := parsedURL.Query()
 
 		ethereumAddress := strings.Join(urlParameters["address"], "")
@@ -85,13 +85,13 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		// valid that the ethereum chain is one of 3 values: mainnet, rinkeby, kovan
 		switch ethereumChain {
 		case "mainnet":
-			fmt.Println("mainnet")
+			//fmt.Println("mainnet")
 			alchemyURL = "https://eth-mainnet.alchemyapi.io/v2/demo/getNFTs/"
 		case "rinkeby":
-			fmt.Println("rinkeby")
+			//fmt.Println("rinkeby")
 			alchemyURL = "https://eth-rinkeby.alchemyapi.io/v2/demo/getNFTs/"
 		case "kovan":
-			fmt.Println("kovan")
+			//fmt.Println("kovan")
 			alchemyURL = "https://eth-kovan.alchemyapi.io/v2/demo/getNFTs/"
 		default:
 			w.WriteHeader(400)
@@ -100,8 +100,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 
 		}
 		
-		
-		// construct http request to external api
+		// send http request to external api
 		resp, err := http.Get(alchemyURL + "?owner=" + ethereumAddress)
 		if err != nil {
 			fmt.Println(err)
@@ -115,7 +114,7 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		json.Unmarshal(buffer, &alchemyGetNFTsResponseObject)
 
 		
-		// loop through the response from alchemy getNFTs api and parse the below variables into the apiResponseObject
+		// loop through the response from alchemy getNFTs api and append the shortened response to the apiResponseObject
 		for _, ownedNFT := range alchemyGetNFTsResponseObject.OwnedNfts {
 
 			// create an anonymous struct with and append to the apiResponseObject.OwnedNfts array
@@ -145,8 +144,6 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 	} else{
 		fmt.Fprintf(w, "Invalid Request")
 	}
-
-	fmt.Print(r.Method)
 }
 
 
@@ -157,7 +154,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	// add handlers to the http router
-	mux.HandleFunc("/api/", apiHandler)
+	mux.HandleFunc("/api/", APIHandler)
 
 	fmt.Println("api listening on http://localhost:8080/api/ ....")
 	// start http server with given http router
